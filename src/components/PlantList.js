@@ -2,20 +2,49 @@ import React, { Component } from "react";
 import axios from "axios";
 
 export default class PlantList extends Component {
+  // SPRINT INSTRUCTIONS
   // add state with a property called "plants" - initialize as an empty array
-
   // when the component mounts:
   //   - fetch data from the server endpoint - http://localhost:3333/plants
   //   - set the returned plants array to this.state.plants
 
+  //JOEY NOTES
+  //or only import React and extend React.Component
+  //tutorial source: https://youtu.be/oQnojIyTXb8
+  //Paul Halliday
+
+  //   this seems incomplete
+  //   state = {
+  //    plants: [],
+  //   };
+  // }
+
+  constructor() {
+    super();
+    this.state = {
+      plants: []
+    };
+  };
+
   /*********  DON'T CHANGE ANYTHING IN THE RENDER FUNCTION *********/
+  // bad positioning. thought I wasn't allowed to change the did mount part as well
+  // componentDidMount() {
+  //   axios.get('http://localhost:3333/plants')
+  //     .then(res => {
+  //       console.log(res);
+  //     });
+  // } //original
+
   componentDidMount() {
     axios.get('http://localhost:3333/plants')
-      .then(res => {
-        console.log(res);
-      });
-  }
+      .then(response => this.setState({
+        ...this.state,
+        plants: response.data
+      }))
+      .catch(err => console.log(err))
+    }
 
+  //I wish the warning had been positioned here and not above
   render() {
     return (
       <main className="plant-list">
